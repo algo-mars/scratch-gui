@@ -26,7 +26,10 @@ module.exports = {
     },
     output: {
         path: path.resolve(__dirname, 'build'),
-        filename: '[name].js'
+        filename: '[name].js',
+        library: 'scratch-gui',
+        libraryTarget: 'umd',
+        publicPath: 'scratch-gui-media/'
     },
     externals: {
         React: 'react',
