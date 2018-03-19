@@ -17,7 +17,6 @@ import Stage from '../../containers/stage.jsx';
 import Loader from '../loader/loader.jsx';
 import Box from '../box/box.jsx';
 import FeedbackForm from '../feedback-form/feedback-form.jsx';
-import MenuBar from '../menu-bar/menu-bar.jsx';
 import PreviewModal from '../../containers/preview-modal.jsx';
 import ImportModal from '../../containers/import-modal.jsx';
 import WebGlModal from '../../containers/webgl-modal.jsx';
@@ -97,7 +96,6 @@ const GUIComponent = props => {
             {isRendererSupported ? null : (
                 <WebGlModal />
             )}
-            <MenuBar />
             <Box className={styles.bodyWrapper}>
                 <Box className={styles.flexWrapper}>
                     <Box className={styles.editorWrapper}>
