@@ -120,7 +120,7 @@ const GUIComponent = props => {
                                         grow={1}
                                         isVisible={blocksTabVisible}
                                         options={{
-                                            media: `${basePath}static/blocks-media/`
+                                            media: `${basePath}scratch-gui-blocks-media/`
                                         }}
                                         vm={vm}
                                     />
