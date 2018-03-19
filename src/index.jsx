@@ -18,12 +18,4 @@ if (process.env.NODE_ENV === 'production' && typeof window === 'object') {
 // Register "base" page view
 analytics.pageview('/');
 
-const App = AppStateHOC(ProjectLoaderHOC(GUI));
-
-const appTarget = document.createElement('div');
-appTarget.className = styles.app;
-document.body.appendChild(appTarget);
-
-Modal.setAppElement(appTarget);
-
-ReactDOM.render(<App />, appTarget);
+export default AppStateHOC(ProjectLoaderHOC(GUI));
