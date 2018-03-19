@@ -4,6 +4,7 @@
   "description": "GraphicaL User Interface for creating and running Scratch 3.0 projects",
   "main": "./build/gui.js",
   "scripts": {
+    "prepubslish": "npm run build",
     "build": "npm run clean && webpack --progress --colors --bail",
     "clean": "rimraf ./build && mkdirp build",
     "deploy": "touch build/.nojekyll && gh-pages -t -d build -m \"Build for $(git log --pretty=format:%H -n1)\"",
