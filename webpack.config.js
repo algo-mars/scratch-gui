@@ -79,33 +79,6 @@ module.exports = {
             'process.env.NODE_ENV': '"' + process.env.NODE_ENV + '"',
             'process.env.DEBUG': Boolean(process.env.DEBUG)
         }),
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'lib',
-            filename: 'lib.min.js'
-        }),
-        new HtmlWebpackPlugin({
-            chunks: ['lib', 'gui'],
-            template: 'src/index.ejs',
-            title: 'Scratch 3.0 GUI'
-        }),
-        new HtmlWebpackPlugin({
-            chunks: ['lib', 'blocksonly'],
-            template: 'src/index.ejs',
-            filename: 'blocks-only.html',
-            title: 'Scratch 3.0 GUI: Blocks Only Example'
-        }),
-        new HtmlWebpackPlugin({
-            chunks: ['lib', 'compatibilitytesting'],
-            template: 'src/index.ejs',
-            filename: 'compatibility-testing.html',
-            title: 'Scratch 3.0 GUI: Compatibility Testing'
-        }),
-        new HtmlWebpackPlugin({
-            chunks: ['lib', 'player'],
-            template: 'src/index.ejs',
-            filename: 'player.html',
-            title: 'Scratch 3.0 GUI: Player Example'
-        }),
         new CopyWebpackPlugin([{
             from: 'static',
             to: 'static'
