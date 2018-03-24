@@ -2,8 +2,8 @@ import ScratchStorage from 'scratch-storage';
 
 import defaultProjectAssets from './default-project';
 
-const PROJECT_SERVER = 'http://localhost:8080';
-const ASSET_SERVER = 'http://localhost:8080';
+const PROJECT_SERVER = '';
+const ASSET_SERVER = '';
 
 /**
  * Wrapper for ScratchStorage which adds default web sources.
@@ -16,9 +16,7 @@ class Storage extends ScratchStorage {
             [this.AssetType.Project],
             projectAsset => {
                 const [projectId, revision] = projectAsset.assetId.split('.');
-                return revision ?
-                    `${PROJECT_SERVER}/internalapi/project/${projectId}.${projectAsset.dataFormat}/${revision}` :
-                    `${PROJECT_SERVER}/internalapi/project/${projectId}.${projectAsset.dataFormat}`;
+                return `${PROJECT_SERVER}/scratch/unzip?project=${projectId}`;
             }
         );
         this.addWebSource(
