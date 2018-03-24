@@ -29,8 +29,7 @@ module.exports = {
         filename: '[name].js',
         library: 'scratch-gui',
         libraryTarget: 'umd',
-        publicPath: (process.env.NODE_ENV === 'production') ?
-            'singlepage/scratch-gui-media/' : ''
+        publicPath: 'singlepage/scratch-gui-media/'
     },
     externals: {
         React: 'react',
