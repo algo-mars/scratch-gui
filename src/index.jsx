@@ -20,7 +20,7 @@ analytics.pageview('/');
 
 const App = AppStateHOC(ProjectLoaderHOC(GUI));
 
-if (process.env.NODE_ENV !== 'production') {
+/*
     const appTarget = document.createElement('div');
     appTarget.className = styles.app;
     document.body.appendChild(appTarget);
@@ -28,6 +28,6 @@ if (process.env.NODE_ENV !== 'production') {
     Modal.setAppElement(appTarget);
 
     ReactDOM.render(<App />, appTarget);
-}
+*/
 
 export default App;
