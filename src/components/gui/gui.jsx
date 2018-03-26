@@ -118,7 +118,7 @@ const GUIComponent = props => {
                                         grow={1}
                                         isVisible={blocksTabVisible}
                                         options={{
-                                            media: `${basePath}/singlepage/scratch-gui-blocks-media/`
+                                            media: `${basePath}singlepage/scratch-gui-blocks-media/`
                                         }}
                                         vm={vm}
                                     />
@@ -193,6 +193,6 @@ GUIComponent.propTypes = {
     vm: PropTypes.instanceOf(VM).isRequired
 };
 GUIComponent.defaultProps = {
-    basePath: './'
+    basePath: '/'
 };
 export default injectIntl(GUIComponent);
