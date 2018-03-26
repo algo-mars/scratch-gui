@@ -20,6 +20,7 @@ analytics.pageview('/');
 
 const App = AppStateHOC(ProjectLoaderHOC(GUI));
 
+if (!document.getElementById('root')) {
     const appTarget = document.createElement('div');
     appTarget.className = styles.app;
     document.body.appendChild(appTarget);
@@ -27,5 +28,6 @@ const App = AppStateHOC(ProjectLoaderHOC(GUI));
     Modal.setAppElement(appTarget);
 
     ReactDOM.render(<App />, appTarget);
+}
 
 export default App;
