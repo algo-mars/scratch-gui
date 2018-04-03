@@ -19,6 +19,13 @@ class SaveButton extends React.Component {
         document.body.appendChild(saveLink);
 
         this.props.vm.saveProjectSb3().then(content => {
+
+var xhr = new XMLHttpRequest();
+xhr.open('POST', 'http://localhost:8080/scratch/upload?project=100007&user=336&hash=abb5f985dcbd723c4ea3f38e8c5bd3b8&title=New%20project', true);
+xhr.onload = function(e) {};
+xhr.send(content);
+return
+
             const url = window.URL.createObjectURL(content);
 
             saveLink.href = url;
@@ -40,18 +47,12 @@ class SaveButton extends React.Component {
             ...props
         } = this.props;
         return (
-            <ComingSoonTooltip
-                place="bottom"
-                tooltipId="save-button"
-            >
                 <ButtonComponent
-                    disabled
                     onClick={this.handleClick}
                     {...props}
                 >
                     Save
                 </ButtonComponent>
-            </ComingSoonTooltip>
         );
     }
 }
