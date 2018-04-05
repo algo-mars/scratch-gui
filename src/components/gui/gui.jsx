@@ -46,11 +46,12 @@ const GUIComponent = props => {
         children,
         costumesTabVisible,
         feedbackFormVisible,
+        hash,
         importInfoVisible,
         intl,
         loading,
-        onExtensionButtonClick,
         onActivateTab,
+        onExtensionButtonClick,
         previewInfoVisible,
         soundsTabVisible,
         vm,
@@ -94,7 +95,7 @@ const GUIComponent = props => {
             {isRendererSupported ? null : (
                 <WebGlModal />
             )}
-            <MenuBar />
+            <MenuBar hash={hash} />
             <Box className={styles.bodyWrapper}>
                 <Box className={styles.flexWrapper}>
                     <Box className={styles.editorWrapper}>

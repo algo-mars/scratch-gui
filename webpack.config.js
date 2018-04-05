@@ -29,6 +29,8 @@ module.exports = {
         filename: '[name].js',
         library: 'scratch-gui',
         libraryTarget: 'umd',
+
+        // comment this to start server in dev (and uncomment before build)
         publicPath: '/singlepage/scratch-gui-media/'
     },
     externals: {

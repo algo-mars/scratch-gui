@@ -10,6 +10,7 @@ import {ComingSoonTooltip} from '../components/coming-soon/coming-soon.jsx';
 class SaveButton extends React.Component {
     constructor (props) {
         super(props);
+
         bindAll(this, [
             'handleClick'
         ]);
