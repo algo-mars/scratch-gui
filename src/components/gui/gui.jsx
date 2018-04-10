@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
-import {defineMessages, injectIntl, intlShape} from 'react-intl';
+import {defineMessages, FormattedMessage, injectIntl, intlShape} from 'react-intl';
 import {Tab, Tabs, TabList, TabPanel} from 'react-tabs';
 import MediaQuery from 'react-responsive';
 import tabStyles from 'react-tabs/style/react-tabs.css';
@@ -25,6 +25,9 @@ import WebGlModal from '../../containers/webgl-modal.jsx';
 import layout from '../../lib/layout-constants.js';
 import styles from './gui.css';
 import addExtensionIcon from './icon--extensions.svg';
+import codeIcon from './icon--code.svg';
+import costumesIcon from './icon--costumes.svg';
+import soundsIcon from './icon--sounds.svg';
 
 const messages = defineMessages({
     addExtension: {
@@ -46,12 +49,13 @@ const GUIComponent = props => {
         children,
         costumesTabVisible,
         feedbackFormVisible,
-        hash,
         importInfoVisible,
         intl,
         loading,
-        onActivateTab,
         onExtensionButtonClick,
+        onActivateCostumesTab,
+        onActivateSoundsTab,
+        onActivateTab,
         previewInfoVisible,
         soundsTabVisible,
         vm,
@@ -83,6 +87,9 @@ const GUIComponent = props => {
             className={styles.pageWrapper}
             {...componentProps}
         >
+            {previewInfoVisible ? (
+                <PreviewModal />
+            ) : null}
             {loading ? (
                 <Loader />
             ) : null}
@@ -95,7 +102,7 @@ const GUIComponent = props => {
             {isRendererSupported ? null : (
                 <WebGlModal />
             )}
-            <MenuBar hash={hash} />
+            <MenuBar />
             <Box className={styles.bodyWrapper}>
                 <Box className={styles.flexWrapper}>
                     <Box className={styles.editorWrapper}>
@@ -108,9 +115,45 @@ const GUIComponent = props => {
                             onSelect={onActivateTab}
                         >
                             <TabList className={tabClassNames.tabList}>
-                                <Tab className={tabClassNames.tab}>Blocks</Tab>
-                                <Tab className={tabClassNames.tab}>Costumes</Tab>
-                                <Tab className={tabClassNames.tab}>Sounds</Tab>
+                                <Tab className={tabClassNames.tab}>
+                                    <img
+                                        draggable={false}
+                                        src={codeIcon}
+                                    />
+                                    <FormattedMessage
+                                        defaultMessage="Code"
+                                        description="Button to get to the code panel"
+                                        id="gui.gui.codeTab"
+                                    />
+                                </Tab>
+                                <Tab
+                                    className={tabClassNames.tab}
+                                    onClick={onActivateCostumesTab}
+                                >
+                                    <img
+                                        draggable={false}
+                                        src={costumesIcon}
+                                    />
+                                    <FormattedMessage
+                                        defaultMessage="Costumes"
+                                        description="Button to get to the costumes panel"
+                                        id="gui.gui.costumesTab"
+                                    />
+                                </Tab>
+                                <Tab
+                                    className={tabClassNames.tab}
+                                    onClick={onActivateSoundsTab}
+                                >
+                                    <img
+                                        draggable={false}
+                                        src={soundsIcon}
+                                    />
+                                    <FormattedMessage
+                                        defaultMessage="Sounds"
+                                        description="Button to get to the sounds panel"
+                                        id="gui.gui.soundsTab"
+                                    />
+                                </Tab>
                             </TabList>
                             <TabPanel className={tabClassNames.tabPanel}>
                                 <Box className={styles.blocksWrapper}>
@@ -118,7 +161,7 @@ const GUIComponent = props => {
                                         grow={1}
                                         isVisible={blocksTabVisible}
                                         options={{
-                                            media: `${basePath}singlepage/scratch-gui-blocks-media/`
+                                            media: `${basePath}static/blocks-media/`
                                         }}
                                         vm={vm}
                                     />
@@ -185,6 +228,8 @@ GUIComponent.propTypes = {
     importInfoVisible: PropTypes.bool,
     intl: intlShape.isRequired,
     loading: PropTypes.bool,
+    onActivateCostumesTab: PropTypes.func,
+    onActivateSoundsTab: PropTypes.func,
     onActivateTab: PropTypes.func,
     onExtensionButtonClick: PropTypes.func,
     onTabSelect: PropTypes.func,
@@ -193,6 +238,6 @@ GUIComponent.propTypes = {
     vm: PropTypes.instanceOf(VM).isRequired
 };
 GUIComponent.defaultProps = {
-    basePath: '/'
+    basePath: './'
 };
 export default injectIntl(GUIComponent);

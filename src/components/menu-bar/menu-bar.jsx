@@ -43,7 +43,7 @@ const MenuBar = props => (
                 <div className={classNames(styles.menuItem)}>
                     <ComingSoonTooltip
                         className={styles.comingSoon}
-                        place="bottom"
+                        place="right"
                         tooltipClassName={styles.comingSoonTooltip}
                         tooltipId="menubar-selector"
                     >
