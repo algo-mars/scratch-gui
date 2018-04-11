@@ -35,3 +35,6 @@ const AppStateHOC = function (WrappedComponent) {
 };
 
 export default AppStateHOC;
+
+const vm = store.getState().vm;
+export { vm };

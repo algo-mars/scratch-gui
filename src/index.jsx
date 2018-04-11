@@ -31,3 +31,6 @@ if (!document.getElementById('root')) {
 }
 
 export default App;
+
+import { vm } from './lib/app-state-hoc.jsx';
+export { vm };

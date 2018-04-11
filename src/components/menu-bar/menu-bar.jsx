@@ -6,7 +6,6 @@ import React from 'react';
 
 import Box from '../box/box.jsx';
 import Button from '../button/button.jsx';
-import SaveButton from '../../containers/save-button.jsx';
 import {ComingSoonTooltip} from '../coming-soon/coming-soon.jsx';
 import LanguageSelector from '../../containers/language-selector.jsx';
 
@@ -37,9 +36,6 @@ const MenuBar = props => (
                         src={scratchLogo}
                     />
                 </div>
-
-<SaveButton className={styles.menuItem} hash={props.hash} />
-
                 <div className={classNames(styles.menuItem)}>
                     <ComingSoonTooltip
                         className={styles.comingSoon}
