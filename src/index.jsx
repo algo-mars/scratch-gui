@@ -33,4 +33,5 @@ if (!document.getElementById('root')) {
 export default App;
 
 import { vm } from './lib/app-state-hoc.jsx';
-export { triggerSaveProject: vm.saveProjectSb3 };
+const saveProjectSb3 = vm.saveProjectSb3;
+export { saveProjectSb3 as triggerSaveProject };
