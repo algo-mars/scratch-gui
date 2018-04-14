@@ -31,7 +31,7 @@ module.exports = {
         libraryTarget: 'umd',
 
         // comment this to start server in dev (and uncomment before build)
-//        publicPath: '/singlepage/scratch-gui-media/'
+        publicPath: '/singlepage/scratch-gui-media/'
     },
     externals: {
         React: 'react',
