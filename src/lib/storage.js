@@ -16,7 +16,7 @@ class Storage extends ScratchStorage {
             [this.AssetType.Project],
             projectAsset => {
                 const [projectId, revision] = projectAsset.assetId.split('.');
-                return `${PROJECT_SERVER}/scratch/unzip?project=${projectId}`;
+                return `${PROJECT_SERVER}/scratch/load?project=${projectId}`;
             }
         );
         this.addWebSource(
