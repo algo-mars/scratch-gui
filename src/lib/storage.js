@@ -4,6 +4,7 @@ import defaultProjectAssets from './default-project';
 
 const PROJECT_SERVER = '';
 const ASSET_SERVER = '';
+const SCRATCH_ASSET_SERVER = 'https://cdn.assets.scratch.mit.edu';
 
 /**
  * Wrapper for ScratchStorage which adds default web sources.
@@ -19,10 +20,17 @@ class Storage extends ScratchStorage {
                 return `${PROJECT_SERVER}/scratch/load?project=${projectId}`;
             }
         );
+
+        this.addWebSource(
+            [this.AssetType.ImageVector, this.AssetType.ImageBitmap, this.AssetType.Sound],
+            asset => `${SCRATCH_ASSET_SERVER}/internalapi/asset/${asset.assetId}.${asset.dataFormat}/get/`
+        );
+
         this.addWebSource(
             [this.AssetType.ImageVector, this.AssetType.ImageBitmap, this.AssetType.Sound],
             asset => `${ASSET_SERVER}/scratch/asset?asset=${asset.assetId}.${asset.dataFormat}`
         );
+
         defaultProjectAssets.forEach(asset => this.cache(
             this.AssetType[asset.assetType],
             this.DataFormat[asset.dataFormat],
