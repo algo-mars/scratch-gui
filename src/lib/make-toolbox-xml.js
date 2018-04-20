@@ -134,7 +134,7 @@ const motion = function (isStage, targetId) {
 
 const looks = function (isStage, targetId) {
     return `
-    <category name="Looks" colour="#9966FF" secondaryColour="#774DCB">
+    <category name="Внешность" colour="#9966FF" secondaryColour="#774DCB">
         ${isStage ? '' : `
         <block type="looks_sayforsecs">
             <value name="MESSAGE">
@@ -261,7 +261,7 @@ const looks = function (isStage, targetId) {
 
 const sound = function (isStage, targetId) {
     return `
-    <category name="Sound" colour="#D65CD6" secondaryColour="#BD42BD">
+    <category name="Звук" colour="#D65CD6" secondaryColour="#BD42BD">
         <block id="${targetId}_sound_play" type="sound_play">
             <value name="SOUND_MENU">
                 <shadow type="sound_sounds_menu"/>
@@ -312,7 +312,7 @@ const sound = function (isStage, targetId) {
 
 const events = function (isStage) {
     return `
-    <category name="Events" colour="#FFD500" secondaryColour="#CC9900">
+    <category name="События" colour="#FFD500" secondaryColour="#CC9900">
         <block type="event_whenflagclicked"/>
         <block type="event_whenkeypressed">
         </block>
@@ -351,7 +351,7 @@ const events = function (isStage) {
 
 const control = function (isStage) {
     return `
-    <category name="Control" colour="#FFAB19" secondaryColour="#CF8B17">
+    <category name="Управление" colour="#FFAB19" secondaryColour="#CF8B17">
         <block type="control_wait">
             <value name="DURATION">
                 <shadow type="math_positive_number">
@@ -398,7 +398,7 @@ const control = function (isStage) {
 
 const sensing = function (isStage) {
     return `
-    <category name="Sensing" colour="#4CBFE6" secondaryColour="#2E8EB8">
+    <category name="Сенсоры" colour="#4CBFE6" secondaryColour="#2E8EB8">
         ${isStage ? '' : `
             <block type="sensing_touchingobject">
                 <value name="TOUCHINGOBJECTMENU">
@@ -468,7 +468,7 @@ const sensing = function (isStage) {
 
 const operators = function () {
     return `
-    <category name="Operators" colour="#40BF4A" secondaryColour="#389438">
+    <category name="Оператора" colour="#40BF4A" secondaryColour="#389438">
         <block type="operator_add">
             <value name="NUM1">
                 <shadow type="math_number">
@@ -650,14 +650,14 @@ const operators = function () {
 
 const variables = function () {
     return `
-    <category name="Variables" colour="#FF8C1A" secondaryColour="#DB6E00" custom="VARIABLE">
+    <category name="Переменные" colour="#FF8C1A" secondaryColour="#DB6E00" custom="VARIABLE">
     </category>
     `;
 };
 
 const myBlocks = function () {
     return `
-    <category name="My Blocks" colour="#FF6680" secondaryColour="#FF4D6A" custom="PROCEDURE">
+    <category name="Мои блоки" colour="#FF6680" secondaryColour="#FF4D6A" custom="PROCEDURE">
     </category>
     `;
 };
