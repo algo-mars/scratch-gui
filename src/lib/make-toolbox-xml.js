@@ -468,7 +468,7 @@ const sensing = function (isStage) {
 
 const operators = function () {
     return `
-    <category name="Оператора" colour="#40BF4A" secondaryColour="#389438">
+    <category name="Операторы" colour="#40BF4A" secondaryColour="#389438">
         <block type="operator_add">
             <value name="NUM1">
                 <shadow type="math_number">
