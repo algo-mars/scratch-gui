@@ -2,6 +2,7 @@ import AudioEngine from 'scratch-audio';
 import PropTypes from 'prop-types';
 import React from 'react';
 import VM from 'scratch-vm';
+import EventEmitter from 'events';
 import {connect} from 'react-redux';
 
 import {openExtensionLibrary} from '../reducers/modals';
@@ -34,6 +35,9 @@ class GUI extends React.Component {
                     this.props.vm.setCompatibilityMode(true);
                     this.props.vm.start();
                 });
+                if (this.props.eventEmitter) {
+                  this.props.eventEmitter.emit('scratchGuiProjectLoaded');
+                }
             })
             .catch(e => {
                 // Need to catch this error and update component state so that
@@ -88,6 +92,7 @@ GUI.propTypes = {
     loadingStateVisible: PropTypes.bool,
     previewInfoVisible: PropTypes.bool,
     projectData: PropTypes.string,
+    eventEmitter: PropTypes.instanceOf(EventEmitter),
     vm: PropTypes.instanceOf(VM)
 };
 
