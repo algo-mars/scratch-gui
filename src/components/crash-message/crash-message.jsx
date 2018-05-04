@@ -13,19 +13,16 @@ const CrashMessage = props => (
                 src={reloadIcon}
             />
             <h2>
-                Oops! Something went wrong.
+                Ошибка! Проект не загружен.
             </h2>
             <p>
-                We are so sorry, but it looks like Scratch has crashed. This bug has been
-                automatically reported to the Scratch Team. Please refresh your page to try
-                again.
-
+                Возможно, этот проект ещё не был сконвертирован в Scratch-3 или файл проекта отсутствует на сервере.
             </p>
             <button
                 className={styles.reloadButton}
                 onClick={props.onReload}
             >
-                Reload
+                Попробовать ещё
             </button>
         </Box>
     </div>
