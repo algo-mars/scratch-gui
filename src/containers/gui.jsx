@@ -13,6 +13,8 @@ import {
     SOUNDS_TAB_INDEX
 } from '../reducers/editor-tab';
 
+import AppStateHOC from '../lib/app-state-hoc.jsx';
+import ProjectLoaderHOC from '../lib/project-loader-hoc.jsx';
 import vmListenerHOC from '../lib/vm-listener-hoc.jsx';
 
 import GUIComponent from '../components/gui/gui.jsx';
@@ -36,7 +38,7 @@ class GUI extends React.Component {
                     this.props.vm.start();
                 });
                 if (this.props.eventEmitter) {
-                  this.props.eventEmitter.emit('scratchGuiProjectLoaded');
+                    this.props.eventEmitter.emit('scratchGuiProjectLoaded');
                 }
             })
             .catch(e => {
@@ -71,7 +73,7 @@ class GUI extends React.Component {
             loadingStateVisible,
             projectData, // eslint-disable-line no-unused-vars
             vm,
-            eventEmitter,
+            eventEmitter, // eslint-disable-line no-unused-vars
 
             ...componentProps
         } = this.props;
@@ -89,12 +91,12 @@ class GUI extends React.Component {
 
 GUI.propTypes = {
     ...GUIComponent.propTypes,
+    eventEmitter: PropTypes.instanceOf(EventEmitter),
     fetchingProject: PropTypes.bool,
     importInfoVisible: PropTypes.bool,
     loadingStateVisible: PropTypes.bool,
     previewInfoVisible: PropTypes.bool,
-    projectData: PropTypes.string,
-    eventEmitter: PropTypes.instanceOf(EventEmitter),
+    projectData: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
     vm: PropTypes.instanceOf(VM)
 };
 
@@ -103,11 +105,14 @@ GUI.defaultProps = GUIComponent.defaultProps;
 const mapStateToProps = state => ({
     activeTabIndex: state.editorTab.activeTabIndex,
     blocksTabVisible: state.editorTab.activeTabIndex === BLOCKS_TAB_INDEX,
+    cardsVisible: state.cards.visible,
     costumesTabVisible: state.editorTab.activeTabIndex === COSTUMES_TAB_INDEX,
     importInfoVisible: state.modals.importInfo,
     loadingStateVisible: state.modals.loadingProject,
     previewInfoVisible: state.modals.previewInfo,
-    soundsTabVisible: state.editorTab.activeTabIndex === SOUNDS_TAB_INDEX
+    targetIsStage: state.targets.stage && state.targets.stage.id === state.targets.editingTarget,
+    soundsTabVisible: state.editorTab.activeTabIndex === SOUNDS_TAB_INDEX,
+    tipsLibraryVisible: state.modals.tipsLibrary
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -122,4 +127,9 @@ const ConnectedGUI = connect(
     mapDispatchToProps,
 )(GUI);
 
-export default vmListenerHOC(ConnectedGUI);
+export default ProjectLoaderHOC(AppStateHOC(vmListenerHOC(ConnectedGUI)));
+
+/*
+import {vm} from '../lib/app-state-hoc.jsx';
+export {vm};
+*/
