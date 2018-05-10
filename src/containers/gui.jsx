@@ -4,6 +4,7 @@ import React from 'react';
 import VM from 'scratch-vm';
 import EventEmitter from 'events';
 import {connect} from 'react-redux';
+import ReactModal from 'react-modal';
 
 import {openExtensionLibrary} from '../reducers/modals';
 import {
@@ -127,9 +128,13 @@ const ConnectedGUI = connect(
     mapDispatchToProps,
 )(GUI);
 
-export default ProjectLoaderHOC(AppStateHOC(vmListenerHOC(ConnectedGUI)));
 
 /*
 import {vm} from '../lib/app-state-hoc.jsx';
 export {vm};
 */
+
+const WrappedGui = ProjectLoaderHOC(AppStateHOC(vmListenerHOC(ConnectedGUI)));
+
+WrappedGui.setAppElement = ReactModal.setAppElement;
+export default WrappedGui;

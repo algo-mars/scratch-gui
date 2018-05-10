@@ -5,6 +5,7 @@ var webpack = require('webpack');
 // Plugins
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 // PostCss
 var autoprefixer = require('autoprefixer');
@@ -14,6 +15,7 @@ var postcssImport = require('postcss-import');
 console.log(process.env.NODE_ENV)
 
 const base = {
+    mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
     devtool: 'cheap-module-source-map',
     devServer: {
         contentBase: path.resolve(__dirname, 'build'),
@@ -63,23 +65,25 @@ const base = {
             }]
         }]
     },
-    plugins: [].concat(process.env.NODE_ENV === 'production' ? [
-        new webpack.optimize.UglifyJsPlugin({
-            include: /\.min\.js$/,
-            minimize: true
-        })
-    ] : [])
+    optimization: {
+        minimizer: [
+            new UglifyJsPlugin({
+                include: /\.min\.js$/
+            })
+        ]
+    },
+    plugins: []
 };
 
 module.exports = [
     // to run editor examples
     defaultsDeep({}, base, {
         entry: {
-            lib: ['react', 'react-dom'],
-            gui: './src/playground/index.jsx',
-            blocksonly: './src/playground/blocks-only.jsx',
-            compatibilitytesting: './src/playground/compatibility-testing.jsx',
-            player: './src/playground/player.jsx'
+            'lib.min': ['react', 'react-dom'],
+            'gui': './src/playground/index.jsx',
+            'blocksonly': './src/playground/blocks-only.jsx',
+            'compatibilitytesting': './src/playground/compatibility-testing.jsx',
+            'player': './src/playground/player.jsx'
         },
         output: {
             path: path.resolve(__dirname, 'build'),
@@ -100,36 +104,41 @@ module.exports = [
                 }
             ])
         },
+        optimization: {
+            splitChunks: {
+                chunks: 'all',
+                name: 'lib.min'
+            },
+            runtimeChunk: {
+                name: 'lib.min'
+            }
+        },
         plugins: base.plugins.concat([
             new webpack.DefinePlugin({
                 'process.env.NODE_ENV': '"' + process.env.NODE_ENV + '"',
                 'process.env.DEBUG': Boolean(process.env.DEBUG),
                 'process.env.GA_ID': '"' + (process.env.GA_ID || 'UA-000000-01') + '"'
             }),
-            new webpack.optimize.CommonsChunkPlugin({
-                name: 'lib',
-                filename: 'lib.min.js'
-            }),
             new HtmlWebpackPlugin({
-                chunks: ['lib', 'gui'],
+                chunks: ['lib.min', 'gui'],
                 template: 'src/playground/index.ejs',
                 title: 'Scratch 3.0 GUI',
                 sentryConfig: process.env.SENTRY_CONFIG ? '"' + process.env.SENTRY_CONFIG + '"' : null
             }),
             new HtmlWebpackPlugin({
-                chunks: ['lib', 'blocksonly'],
+                chunks: ['lib.min', 'blocksonly'],
                 template: 'src/playground/index.ejs',
                 filename: 'blocks-only.html',
                 title: 'Scratch 3.0 GUI: Blocks Only Example'
             }),
             new HtmlWebpackPlugin({
-                chunks: ['lib', 'compatibilitytesting'],
+                chunks: ['lib.min', 'compatibilitytesting'],
                 template: 'src/playground/index.ejs',
                 filename: 'compatibility-testing.html',
                 title: 'Scratch 3.0 GUI: Compatibility Testing'
             }),
             new HtmlWebpackPlugin({
-                chunks: ['lib', 'player'],
+                chunks: ['lib.min', 'player'],
                 template: 'src/playground/index.ejs',
                 filename: 'player.html',
                 title: 'Scratch 3.0 GUI: Player Example'
