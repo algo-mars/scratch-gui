@@ -11,6 +11,8 @@ var autoprefixer = require('autoprefixer');
 var postcssVars = require('postcss-simple-vars');
 var postcssImport = require('postcss-import');
 
+console.log(process.env.NODE_ENV)
+
 const base = {
     devtool: 'cheap-module-source-map',
     devServer: {
@@ -20,9 +22,7 @@ const base = {
     },
     output: {
         library: 'GUI',
-        filename: '[name].js',
-        // comment this to start server in dev (and uncomment before build)
-        publicPath: '/singlepage/scratch-gui-media/'
+        filename: '[name].js'
     },
     externals: {
         React: 'react',
@@ -71,16 +71,19 @@ const base = {
     ] : [])
 };
 
-module.exports = 
-    // export as library
+module.exports = [
+    // to run editor examples
     defaultsDeep({}, base, {
-        target: 'web',
         entry: {
-            'scratch-gui': './src/containers/gui.jsx'
+            lib: ['react', 'react-dom'],
+            gui: './src/playground/index.jsx',
+            blocksonly: './src/playground/blocks-only.jsx',
+            compatibilitytesting: './src/playground/compatibility-testing.jsx',
+            player: './src/playground/player.jsx'
         },
         output: {
-            libraryTarget: 'umd',
-            path: path.resolve('dist')
+            path: path.resolve(__dirname, 'build'),
+            filename: '[name].js'
         },
         externals: {
             React: 'react',
@@ -89,24 +92,105 @@ module.exports =
         module: {
             rules: base.module.rules.concat([
                 {
-                  
                     test: /\.(svg|png|wav|gif|jpg)$/,
                     loader: 'file-loader',
                     options: {
-                        outputPath: 'static/assets/',
-                        publicPath: '/static/assets/'
+                        outputPath: 'static/assets/'
                     }
                 }
             ])
         },
         plugins: base.plugins.concat([
+            new webpack.DefinePlugin({
+                'process.env.NODE_ENV': '"' + process.env.NODE_ENV + '"',
+                'process.env.DEBUG': Boolean(process.env.DEBUG),
+                'process.env.GA_ID': '"' + (process.env.GA_ID || 'UA-000000-01') + '"'
+            }),
+            new webpack.optimize.CommonsChunkPlugin({
+                name: 'lib',
+                filename: 'lib.min.js'
+            }),
+            new HtmlWebpackPlugin({
+                chunks: ['lib', 'gui'],
+                template: 'src/playground/index.ejs',
+                title: 'Scratch 3.0 GUI',
+                sentryConfig: process.env.SENTRY_CONFIG ? '"' + process.env.SENTRY_CONFIG + '"' : null
+            }),
+            new HtmlWebpackPlugin({
+                chunks: ['lib', 'blocksonly'],
+                template: 'src/playground/index.ejs',
+                filename: 'blocks-only.html',
+                title: 'Scratch 3.0 GUI: Blocks Only Example'
+            }),
+            new HtmlWebpackPlugin({
+                chunks: ['lib', 'compatibilitytesting'],
+                template: 'src/playground/index.ejs',
+                filename: 'compatibility-testing.html',
+                title: 'Scratch 3.0 GUI: Compatibility Testing'
+            }),
+            new HtmlWebpackPlugin({
+                chunks: ['lib', 'player'],
+                template: 'src/playground/index.ejs',
+                filename: 'player.html',
+                title: 'Scratch 3.0 GUI: Player Example'
+            }),
+            new CopyWebpackPlugin([{
+                from: 'static',
+                to: 'static'
+            }]),
             new CopyWebpackPlugin([{
                 from: 'node_modules/scratch-blocks/media',
                 to: 'static/blocks-media'
+            }]),
+            new CopyWebpackPlugin([{
+                from: 'extensions/**',
+                to: 'static',
+                context: 'src/examples'
             }]),
             new CopyWebpackPlugin([{
                 from: 'extension-worker.{js,js.map}',
                 context: 'node_modules/scratch-vm/dist/web'
             }])
         ])
-    });
+    })
+].concat(
+    process.env.NODE_ENV === 'production' ? (
+        // export as library
+        defaultsDeep({}, base, {
+            target: 'web',
+            entry: {
+                'scratch-gui': './src/containers/gui.jsx'
+            },
+            output: {
+                libraryTarget: 'umd',
+                path: path.resolve('dist')
+            },
+            externals: {
+                React: 'react',
+                ReactDOM: 'react-dom'
+            },
+            module: {
+                rules: base.module.rules.concat([
+                    {
+                      
+                        test: /\.(svg|png|wav|gif|jpg)$/,
+                        loader: 'file-loader',
+                        options: {
+                            outputPath: 'static/assets/',
+                            publicPath: '/static/assets/'
+                        }
+                    }
+                ])
+            },
+            plugins: base.plugins.concat([
+                new CopyWebpackPlugin([{
+                    from: 'node_modules/scratch-blocks/media',
+                    to: 'static/blocks-media'
+                }]),
+                new CopyWebpackPlugin([{
+                    from: 'extension-worker.{js,js.map}',
+                    context: 'node_modules/scratch-vm/dist/web'
+                }])
+            ])
+        })) : []
+);
