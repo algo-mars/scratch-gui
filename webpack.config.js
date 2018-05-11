@@ -24,7 +24,9 @@ const base = {
     },
     output: {
         library: 'GUI',
-        filename: '[name].js'
+        filename: '[name].js',
+        publicPath: process.env.NODE_ENV === 'production' ?
+            '/singlepage/scratch-gui-media/' : ''
     },
     externals: {
         React: 'react',
