@@ -12,7 +12,7 @@ var autoprefixer = require('autoprefixer');
 var postcssVars = require('postcss-simple-vars');
 var postcssImport = require('postcss-import');
 
-console.log(process.env.NODE_ENV)
+console.log('NODE_ENV', process.env.NODE_ENV);
 
 const base = {
     mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
@@ -24,9 +24,7 @@ const base = {
     },
     output: {
         library: 'GUI',
-        filename: '[name].js',
-        publicPath: process.env.NODE_ENV === 'production' ?
-            '/singlepage/scratch-gui-media/' : ''
+        filename: '[name].js'
     },
     externals: {
         React: 'react',
