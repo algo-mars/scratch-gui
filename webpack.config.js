@@ -34,7 +34,7 @@ const base = {
         rules: [{
             test: /\.jsx?$/,
             loader: 'babel-loader',
-            exclude: /node_modules\/(?!scratch-svg-renderer)/
+            include: path.resolve(__dirname, 'src')
         },
         {
             test: /\.css$/,
