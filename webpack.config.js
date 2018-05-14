@@ -166,7 +166,7 @@ module.exports = [
     process.env.NODE_ENV === 'production' ? (
         // export as library
         defaultsDeep({}, base, {
-//            target: 'web',
+            target: 'web',
             entry: {
                 'scratch-gui': './src/containers/gui.jsx'
             },
