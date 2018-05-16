@@ -186,7 +186,8 @@ module.exports = [
                         loader: 'file-loader',
                         options: {
                             outputPath: 'static/assets/',
-                            publicPath: '/static/assets/'
+                            publicPath: (process.env.ASSET_PATH || '/') +
+                                'static/assets/'
                         }
                     }
                 ])

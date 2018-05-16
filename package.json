@@ -5,7 +5,7 @@
   "main": "./dist/scratch-gui.js",
   "scripts": {
     "prepubslish": "npm run build",
-    "build": "npm run clean && NODE_ENV=production webpack --display-modules --progress --colors --bail",
+    "build": "npm run clean && NODE_ENV=production ASSET_PATH=/singlepage/scratch-gui/ webpack --display-modules --progress --colors --bail",
     "clean": "rimraf ./build && mkdirp build && rimraf ./dist && mkdirp dist",
     "deploy": "touch build/.nojekyll && gh-pages -t -d build -m \"Build for $(git log --pretty=format:%H -n1)\"",
     "i18n:src": "babel src > tmp.js && rimraf tmp.js && build-i18n-src ./translations/messages/ ./translations/",
