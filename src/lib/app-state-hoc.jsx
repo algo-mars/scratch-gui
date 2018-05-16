@@ -18,7 +18,7 @@ const enhancer = composeEnhancers(
     )
 );
 
-const vmExport = null;
+let vmExport = null;
 
 /*
  * Higher Order Component to provide redux state. If an `intl` prop is provided
@@ -93,4 +93,5 @@ const AppStateHOC = function (WrappedComponent) {
 
 export default AppStateHOC;
 
+const vm = vmExport;
 export {vm};
