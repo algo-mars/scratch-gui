@@ -12,7 +12,7 @@ var autoprefixer = require('autoprefixer');
 var postcssVars = require('postcss-simple-vars');
 var postcssImport = require('postcss-import');
 
-console.log('NODE_ENV', process.env.NODE_ENV);
+var publicPathFromEnv = process.env.ASSET_PATH || '/';
 
 const base = {
     mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
@@ -24,7 +24,8 @@ const base = {
     },
     output: {
         library: 'GUI',
-        filename: '[name].js'
+        filename: '[name].js',
+        publicPath: '/singlepage/scratch-gui/'
     },
     externals: {
         React: 'react',
@@ -116,6 +117,7 @@ module.exports = [
         plugins: base.plugins.concat([
             new webpack.DefinePlugin({
                 'process.env.NODE_ENV': '"' + process.env.NODE_ENV + '"',
+                'process.env.ASSET_PATH': '"' + process.env.ASSET_PATH + '"',
                 'process.env.DEBUG': Boolean(process.env.DEBUG),
                 'process.env.GA_ID': '"' + (process.env.GA_ID || 'UA-000000-01') + '"'
             }),
@@ -185,9 +187,7 @@ module.exports = [
                         test: /\.(svg|png|wav|gif|jpg)$/,
                         loader: 'file-loader',
                         options: {
-                            outputPath: 'static/assets/',
-                            publicPath: (process.env.ASSET_PATH || '/') +
-                                'static/assets/'
+                            outputPath: 'static/assets/'
                         }
                     }
                 ])
