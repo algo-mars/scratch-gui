@@ -18,6 +18,8 @@ const enhancer = composeEnhancers(
     )
 );
 
+const vmExport = null;
+
 /*
  * Higher Order Component to provide redux state. If an `intl` prop is provided
  * it will override the internal `intl` redux state
@@ -55,6 +57,8 @@ const AppStateHOC = function (WrappedComponent) {
                     mode: mode
                 },
                 enhancer);
+
+            vmExport = this.store.getState().vm;
         }
         componentDidUpdate (prevProps) {
             if (prevProps.intl !== this.props.intl) {
@@ -88,3 +92,5 @@ const AppStateHOC = function (WrappedComponent) {
 };
 
 export default AppStateHOC;
+
+export {vm};

@@ -129,12 +129,12 @@ const ConnectedGUI = connect(
 )(GUI);
 
 
-/*
-import {vm} from '../lib/app-state-hoc.jsx';
-export {vm};
-*/
 
 const WrappedGui = ProjectLoaderHOC(AppStateHOC(vmListenerHOC(ConnectedGUI)));
 
 WrappedGui.setAppElement = ReactModal.setAppElement;
+
+import {vm} from '../lib/app-state-hoc.jsx';
+WrappedGui.vm = vm;
+
 export default WrappedGui;
