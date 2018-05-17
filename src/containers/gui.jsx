@@ -39,7 +39,8 @@ class GUI extends React.Component {
                     this.props.vm.start();
                 });
                 if (this.props.eventEmitter) {
-                    this.props.eventEmitter.emit('scratchGuiProjectLoaded');
+                    this.props.eventEmitter.emit('scratchGuiProjectLoaded',
+                        this.props.vm);
                 }
             })
             .catch(e => {
@@ -128,13 +129,7 @@ const ConnectedGUI = connect(
     mapDispatchToProps,
 )(GUI);
 
-
-
 const WrappedGui = ProjectLoaderHOC(AppStateHOC(vmListenerHOC(ConnectedGUI)));
-
 WrappedGui.setAppElement = ReactModal.setAppElement;
-
-import {vm} from '../lib/app-state-hoc.jsx';
-WrappedGui.vm = vm;
 
 export default WrappedGui;
