@@ -11,6 +11,8 @@ import {initialState as modeInitialState, setPlayer, setFullScreen} from '../red
 import reducer from '../reducers/gui';
 import ErrorBoundary from '../containers/error-boundary.jsx';
 
+import intlDefault from '../playground/intl.js';
+
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const enhancer = composeEnhancers(
     applyMiddleware(
@@ -36,6 +38,8 @@ const AppStateHOC = function (WrappedComponent) {
                     locale: props.intl.locale,
                     messages: props.intl.messages
                 };
+            } else if (intlDefault) {
+              intl = intlDefault;
             } else {
                 intl = intlInitialState.intl;
             }
