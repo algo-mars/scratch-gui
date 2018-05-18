@@ -2,8 +2,7 @@ import ScratchStorage from 'scratch-storage';
 
 import defaultProjectAssets from './default-project';
 
-const PROJECT_SERVER = '';
-const ASSET_SERVER = '';
+const SCRATCH_API_PREFIX = '/api/v1/scratch';
 const SCRATCH_ASSET_SERVER = 'https://cdn.assets.scratch.mit.edu';
 
 /**
@@ -17,7 +16,7 @@ class Storage extends ScratchStorage {
             [this.AssetType.Project],
             projectAsset => {
                 const [projectId, revision] = projectAsset.assetId.split('.');
-                return `${PROJECT_SERVER}/scratch/load/${projectId}`;
+                return `${SCRATCH_API_PREFIX}/load/${projectId}`;
             }
         );
 
@@ -28,7 +27,7 @@ class Storage extends ScratchStorage {
 
         this.addWebSource(
             [this.AssetType.ImageVector, this.AssetType.ImageBitmap, this.AssetType.Sound],
-            asset => `${ASSET_SERVER}/scratch/asset/${asset.assetId}.${asset.dataFormat}`
+            asset => `${SCRATCH_API_PREFIX}/asset/${asset.assetId}.${asset.dataFormat}`
         );
 
         defaultProjectAssets.forEach(asset => this.cache(
