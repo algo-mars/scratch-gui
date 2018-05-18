@@ -41,7 +41,7 @@
 
 .stage-wrapper-overlay {
     position: absolute;
-    top: $stage-menu-height;
+    top: calc($algo-navbar-height + $stage-menu-height);
     left: 0;
     right: 0;
     bottom: 0;
