@@ -17,7 +17,7 @@ class Storage extends ScratchStorage {
             [this.AssetType.Project],
             projectAsset => {
                 const [projectId, revision] = projectAsset.assetId.split('.');
-                return `${PROJECT_SERVER}/scratch/load?project=${projectId}`;
+                return `${PROJECT_SERVER}/scratch/load/${projectId}`;
             }
         );
 
@@ -28,7 +28,7 @@ class Storage extends ScratchStorage {
 
         this.addWebSource(
             [this.AssetType.ImageVector, this.AssetType.ImageBitmap, this.AssetType.Sound],
-            asset => `${ASSET_SERVER}/scratch/asset?asset=${asset.assetId}.${asset.dataFormat}`
+            asset => `${ASSET_SERVER}/scratch/asset/${asset.assetId}.${asset.dataFormat}`
         );
 
         defaultProjectAssets.forEach(asset => this.cache(
