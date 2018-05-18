@@ -60,6 +60,24 @@ const StageHeaderComponent = function (props) {
     const stageSize = getStageSize(isFullScreen);
 
     if (isFullScreen) {
+        const stageButton =
+            isPlayerOnly ? (
+                []
+            ) : (
+                <Button
+                    className={styles.stageButton}
+                    onClick={onSetStageUnFull}
+                    onKeyPress={onKeyPress}
+                >
+                    <img
+                        alt={props.intl.formatMessage(messages.unFullStageSizeMessage)}
+                        className={styles.stageButtonIcon}
+                        draggable={false}
+                        src={unFullScreenIcon}
+                        title={props.intl.formatMessage(messages.fullscreenControl)}
+                    />
+                </Button>
+            );
         header = (
             <Box className={styles.stageHeaderWrapperOverlay}>
                 <Box
@@ -67,19 +85,7 @@ const StageHeaderComponent = function (props) {
                     style={{width: stageSize.width}}
                 >
                     <Controls vm={vm} />
-                    <Button
-                        className={styles.stageButton}
-                        onClick={onSetStageUnFull}
-                        onKeyPress={onKeyPress}
-                    >
-                        <img
-                            alt={props.intl.formatMessage(messages.unFullStageSizeMessage)}
-                            className={styles.stageButtonIcon}
-                            draggable={false}
-                            src={unFullScreenIcon}
-                            title={props.intl.formatMessage(messages.fullscreenControl)}
-                        />
-                    </Button>
+                    {stageButton}
                 </Box>
             </Box>
         );
