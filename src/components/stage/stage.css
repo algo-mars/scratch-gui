@@ -40,7 +40,7 @@
 }
 
 .stage-wrapper-overlay {
-    position: fixed;
+    position: absolute;
     top: $stage-menu-height;
     left: 0;
     right: 0;
