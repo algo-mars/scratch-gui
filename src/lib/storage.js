@@ -27,7 +27,7 @@ class Storage extends ScratchStorage {
 
         this.addWebSource(
             [this.AssetType.ImageVector, this.AssetType.ImageBitmap, this.AssetType.Sound],
-            asset => `${SCRATCH_API_PREFIX}/asset/${asset.assetId}.${asset.dataFormat}`
+            asset => `${SCRATCH_API_PREFIX}/asset/?name=${asset.assetId}.${asset.dataFormat}`
         );
 
         defaultProjectAssets.forEach(asset => this.cache(
