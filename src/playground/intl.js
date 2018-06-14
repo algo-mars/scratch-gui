@@ -10,7 +10,7 @@ Object.keys(localeData).forEach(locale => {
 const intlDefault = {
     defaultLocale: 'en',
     locale: 'en',
-    messages: editorMessages.en
+    messages: editorMessages.ru
 };
 
 export {
