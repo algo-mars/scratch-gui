@@ -35,15 +35,19 @@ const AppStateHOC = function (WrappedComponent) {
             if (props.isPlayerOnly) {
                 initializedGui = initPlayer(initializedGui);
             }
+
             const reducer = combineReducers({
-                intl: intlDefault || intlReducer,
+                intl: intlReducer,
                 scratchGui: guiReducer,
                 scratchPaint: ScratchPaintReducer
             });
 
             this.store = createStore(
                 reducer,
-                {scratchGui: initializedGui},
+                {
+                  scratchGui: initializedGui,
+                  intl: intlDefault
+                },
                 enhancer);
         }
         componentDidUpdate (prevProps) {
