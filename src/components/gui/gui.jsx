@@ -15,11 +15,13 @@ import StageWrapper from '../../containers/stage-wrapper.jsx';
 import Loader from '../loader/loader.jsx';
 import Box from '../box/box.jsx';
 
+import Backpack from '../../containers/backpack.jsx';
 import PreviewModal from '../../containers/preview-modal.jsx';
 import ImportModal from '../../containers/import-modal.jsx';
 import WebGlModal from '../../containers/webgl-modal.jsx';
 import TipsLibrary from '../../containers/tips-library.jsx';
 import Cards from '../../containers/cards.jsx';
+import DragLayer from '../../containers/drag-layer.jsx';
 
 import styles from './gui.css';
 import addExtensionIcon from './icon--extensions.svg';
@@ -43,10 +45,12 @@ const GUIComponent = props => {
     const {
         activeTabIndex,
         basePath,
+        backpackOptions,
         blocksTabVisible,
         cardsVisible,
         children,
         costumesTabVisible,
+        enableCommunity,
         importInfoVisible,
         intl,
         isPlayerOnly,
@@ -108,7 +112,7 @@ const GUIComponent = props => {
                 <Cards />
             ) : null}
             {/*
-            <MenuBar />
+            <MenuBar enableCommunity={enableCommunity} />
             */}
             <Box className={styles.bodyWrapper}>
                 <Box className={styles.flexWrapper}>
@@ -202,6 +206,9 @@ const GUIComponent = props => {
                                 {soundsTabVisible ? <SoundTab vm={vm} /> : null}
                             </TabPanel>
                         </Tabs>
+                        {backpackOptions.visible ? (
+                            <Backpack host={backpackOptions.host} />
+                        ) : null}
                     </Box>
 
                     <Box className={styles.stageAndTargetWrapper}>
@@ -215,16 +222,22 @@ const GUIComponent = props => {
                     </Box>
                 </Box>
             </Box>
+            <DragLayer />
         </Box>
     );
 };
 GUIComponent.propTypes = {
     activeTabIndex: PropTypes.number,
+    backpackOptions: PropTypes.shape({
+        host: PropTypes.string,
+        visible: PropTypes.bool
+    }),
     basePath: PropTypes.string,
     blocksTabVisible: PropTypes.bool,
     cardsVisible: PropTypes.bool,
     children: PropTypes.node,
     costumesTabVisible: PropTypes.bool,
+    enableCommunity: PropTypes.bool,
     importInfoVisible: PropTypes.bool,
     intl: intlShape.isRequired,
     isPlayerOnly: PropTypes.bool,
@@ -241,6 +254,10 @@ GUIComponent.propTypes = {
     vm: PropTypes.instanceOf(VM).isRequired
 };
 GUIComponent.defaultProps = {
+    backpackOptions: {
+        host: null,
+        visible: false
+    },
     basePath: './'
 };
 export default injectIntl(GUIComponent);
