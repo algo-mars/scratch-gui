@@ -144,6 +144,8 @@ const WrappedGui = ErrorBoundaryHOC('Top Level App')(
 
 WrappedGui.setAppElement = ReactModal.setAppElement;
 
+//export default WrappedGui;
+
 import HashParserHOC from '../lib/hash-parser-hoc.jsx';
 import AppStateHOC from '../lib/app-state-hoc.jsx';
 
