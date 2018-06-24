@@ -2,16 +2,7 @@ import ScratchStorage from 'scratch-storage';
 
 import defaultProjectAssets from './default-project';
 
-// TODO(aralot): temporary solution for adding prefix for API calls
-// in backoffice
-const getBackofficePreviewProjectId = (url) => {
-  const regExpMatch = url.pathname.match(
-      /(?:^\/admin\/scratch-preview\/)(\d+)/);
-  return regExpMatch && regExpMatch[1];
-};
-const url = new window.URL(window.location.href);
-const SCRATCH_API_PREFIX = getBackofficePreviewProjectId(url) ?
-    '/admin/api/v1/scratch' : '/api/v1/scratch';
+const SCRATCH_API_PREFIX = '/api/v1/scratch';
 
 const SCRATCH_ASSET_SERVER = 'https://cdn.assets.scratch.mit.edu';
 
