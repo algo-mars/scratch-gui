@@ -2,13 +2,11 @@ import {addLocaleData} from 'react-intl';
 import defaultsDeep from 'lodash.defaultsdeep';
 
 import localeData from 'scratch-l10n';
-import blocksMessages from 'scratch-l10n/locales/blocks-msgs';
-import editorMessages from 'scratch-l10n/locales/editor-msgs';
-import extensionsMessages from 'scratch-l10n/locales/extensions-msgs';
-import interfaceMessages from 'scratch-l10n/locales/extensions-msgs';
-import paintEditorMessages from 'scratch-l10n/locales/extensions-msgs';
+import guiMessages from 'scratch-l10n/locales/gui-msgs';
+import paintMessages from 'scratch-l10n/locales/paint-msgs';
+import penMessages from 'scratch-l10n/locales/pen-msgs';
 
-const combinedMessages = defaultsDeep({}, blocksMessages.messages, editorMessages.messages, extensionsMessages.messages, interfaceMessages, paintEditorMessages);
+const combinedMessages = defaultsDeep({}, guiMessages.messages, paintMessages.messages, penMessages.messages);
 
 Object.keys(localeData).forEach(locale => {
     // TODO: will need to handle locales not in the default intl - see www/custom-locales
