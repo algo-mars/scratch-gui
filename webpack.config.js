@@ -12,8 +12,6 @@ var autoprefixer = require('autoprefixer');
 var postcssVars = require('postcss-simple-vars');
 var postcssImport = require('postcss-import');
 
-var publicPathFromEnv = process.env.ASSET_PATH || '/';
-
 const base = {
     mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
     devtool: 'cheap-module-source-map',
@@ -25,17 +23,34 @@ const base = {
     output: {
         library: 'GUI',
         filename: '[name].js',
-        publicPath: '/singlepage/scratch-gui/'
+        publicPath: process.env.NODE_ENV === 'production' ?
+            '/singlepage/scratch-gui/' : ''
     },
     externals: {
         React: 'react',
         ReactDOM: 'react-dom'
     },
+    resolve: {
+        symlinks: false
+    },
     module: {
         rules: [{
             test: /\.jsx?$/,
             loader: 'babel-loader',
-            include: path.resolve(__dirname, 'src')
+            include: [path.resolve(__dirname, 'src'), /node_modules[\\/]scratch-[^\\/]+[\\/]src/],
+            options: {
+                // Explicitly disable babelrc so we don't catch various config
+                // in much lower dependencies.
+                babelrc: false,
+                plugins: [
+                    'syntax-dynamic-import',
+                    'transform-async-to-generator',
+                    'transform-object-rest-spread',
+                    ['react-intl', {
+                        messagesDir: './translations/messages/'
+                    }]],
+                presets: [['env', {targets: {browsers: ['last 3 versions', 'Safari >= 8', 'iOS >= 8']}}], 'react']
+            }
         },
         {
             test: /\.css$/,
@@ -170,7 +185,7 @@ module.exports = [
         defaultsDeep({}, base, {
             target: 'web',
             entry: {
-                'scratch-gui': './src/containers/gui.jsx'
+                'scratch-gui': './src/index.js'
             },
             output: {
                 libraryTarget: 'umd',
@@ -183,7 +198,6 @@ module.exports = [
             module: {
                 rules: base.module.rules.concat([
                     {
-                      
                         test: /\.(svg|png|wav|gif|jpg)$/,
                         loader: 'file-loader',
                         options: {

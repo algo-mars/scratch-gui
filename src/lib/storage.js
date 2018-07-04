@@ -3,7 +3,6 @@ import ScratchStorage from 'scratch-storage';
 import defaultProjectAssets from './default-project';
 
 const SCRATCH_API_PREFIX = '/api/v1/scratch';
-
 const SCRATCH_ASSET_SERVER = 'https://cdn.assets.scratch.mit.edu';
 
 /**
