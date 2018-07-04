@@ -9179,7 +9179,7 @@ scratch-audio@0.1.0-prerelease.1528210666:
 
 "scratch-blocks@git+https://github.com/algo-mars/scratch-blocks.git":
   version "0.1.0"
-  resolved "git+https://github.com/algo-mars/scratch-blocks.git#08eb762499c1906a8ce2ce2903064bf2691b0d79"
+  resolved "git+https://github.com/algo-mars/scratch-blocks.git#90c092ffd44223b408e6458eb6c3f8e8a7a51001"
   dependencies:
     exports-loader "0.6.3"
     imports-loader "0.6.5"
@@ -9192,9 +9192,9 @@ scratch-l10n@^2.0.0:
     babel-plugin-intl "^0.1.1"
     babel-plugin-react-intl "^2.3.1"
 
-"scratch-l10n@git+https://github.com/algo-mars/scratch-l10n.git":
+"scratch-l10n@git+https://github.com/algo-mars/scratch-l10n":
   version "3.0.0"
-  resolved "git+https://github.com/algo-mars/scratch-l10n.git#008b90f3a7966361128439a31b8434edb0db39c7"
+  resolved "git+https://github.com/algo-mars/scratch-l10n#62e763fa1475a29a10f1d8ce87fe47ae6542e11e"
   dependencies:
     babel-cli "^6.26.0"
     babel-plugin-intl "^0.1.1"

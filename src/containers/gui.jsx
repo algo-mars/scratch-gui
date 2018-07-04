@@ -144,9 +144,13 @@ const WrappedGui = ErrorBoundaryHOC('Top Level App')(
 
 WrappedGui.setAppElement = ReactModal.setAppElement;
 
-//export default WrappedGui;
-
+// export Scratch GUI with embedded state - till we do not have Redux in
+// Algoritmika Singlepage App
+let ExportedGui = WrappedGui;
 import HashParserHOC from '../lib/hash-parser-hoc.jsx';
 import AppStateHOC from '../lib/app-state-hoc.jsx';
+if (process.env.NODE_ENV === 'production') {
+  ExportedGui = HashParserHOC(AppStateHOC(WrappedGui));
+}
 
-export default HashParserHOC(AppStateHOC(WrappedGui));
+export default ExportedGui;

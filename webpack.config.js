@@ -12,8 +12,6 @@ var autoprefixer = require('autoprefixer');
 var postcssVars = require('postcss-simple-vars');
 var postcssImport = require('postcss-import');
 
-var publicPathFromEnv = process.env.ASSET_PATH || '/';
-
 const base = {
     mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
     devtool: 'cheap-module-source-map',
@@ -25,7 +23,8 @@ const base = {
     output: {
         library: 'GUI',
         filename: '[name].js',
-        publicPath: '/singlepage/scratch-gui/'
+        publicPath: process.env.NODE_ENV === 'production' ?
+            '/singlepage/scratch-gui/' : ''
     },
     externals: {
         React: 'react',
