@@ -42,7 +42,8 @@ class ProjectLoader extends React.Component {
     }
     handleChange (e) {
         // Remove the hash if any (without triggering a hash change event or a reload)
-        history.replaceState({}, document.title, '.');
+        // NOTE(@aralot): comment this since we do not need to clear url on load
+        // history.replaceState({}, document.title, '.');
         const reader = new FileReader();
         const thisFileInput = e.target;
         reader.onload = () => this.props.vm.loadProject(reader.result)

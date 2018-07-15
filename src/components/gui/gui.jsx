@@ -14,6 +14,7 @@ import SoundTab from '../../containers/sound-tab.jsx';
 import StageWrapper from '../../containers/stage-wrapper.jsx';
 import Loader from '../loader/loader.jsx';
 import Box from '../box/box.jsx';
+import MenuBar from '../menu-bar/menu-bar.jsx';
 
 import Backpack from '../../containers/backpack.jsx';
 import PreviewModal from '../../containers/preview-modal.jsx';
@@ -111,9 +112,7 @@ const GUIComponent = props => {
             {cardsVisible ? (
                 <Cards />
             ) : null}
-            {/*
             <MenuBar enableCommunity={enableCommunity} />
-            */}
             <Box className={styles.bodyWrapper}>
                 <Box className={styles.flexWrapper}>
                     <Box className={styles.editorWrapper}>
