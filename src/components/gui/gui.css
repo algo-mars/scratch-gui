@@ -42,6 +42,12 @@
     flex-direction: column;
 }
 
+.tab-pane {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .tab-list {
     height: $stage-menu-height;
     width: 250px; /* Match width of the toolbox */

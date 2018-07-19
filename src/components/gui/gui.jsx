@@ -15,6 +15,7 @@ import StageWrapper from '../../containers/stage-wrapper.jsx';
 import Loader from '../loader/loader.jsx';
 import Box from '../box/box.jsx';
 import MenuBar from '../menu-bar/menu-bar.jsx';
+import ProjectTitle from '../project-title/project-title.jsx';
 
 import Backpack from '../../containers/backpack.jsx';
 import PreviewModal from '../../containers/preview-modal.jsx';
@@ -60,7 +61,9 @@ const GUIComponent = props => {
         onActivateCostumesTab,
         onActivateSoundsTab,
         onActivateTab,
+        onProjectRename,
         previewInfoVisible,
+        projectTitle,
         targetIsStage,
         soundsTabVisible,
         tipsLibraryVisible,
@@ -124,55 +127,61 @@ const GUIComponent = props => {
                             selectedTabPanelClassName={tabClassNames.tabPanelSelected}
                             onSelect={onActivateTab}
                         >
-                            <TabList className={tabClassNames.tabList}>
-                                <Tab className={tabClassNames.tab}>
-                                    <img
-                                        draggable={false}
-                                        src={codeIcon}
-                                    />
-                                    <FormattedMessage
-                                        defaultMessage="Code"
-                                        description="Button to get to the code panel"
-                                        id="gui.gui.codeTab"
-                                    />
-                                </Tab>
-                                <Tab
-                                    className={tabClassNames.tab}
-                                    onClick={onActivateCostumesTab}
-                                >
-                                    <img
-                                        draggable={false}
-                                        src={costumesIcon}
-                                    />
-                                    {targetIsStage ? (
-                                        <FormattedMessage
-                                            defaultMessage="Backdrops"
-                                            description="Button to get to the backdrops panel"
-                                            id="gui.gui.backdropsTab"
+                            <Box className={styles.tabPane}>
+                                <TabList className={tabClassNames.tabList}>
+                                    <Tab className={tabClassNames.tab}>
+                                        <img
+                                            draggable={false}
+                                            src={codeIcon}
                                         />
-                                    ) : (
                                         <FormattedMessage
-                                            defaultMessage="Costumes"
-                                            description="Button to get to the costumes panel"
-                                            id="gui.gui.costumesTab"
+                                            defaultMessage="Code"
+                                            description="Button to get to the code panel"
+                                            id="gui.gui.codeTab"
                                         />
-                                    )}
-                                </Tab>
-                                <Tab
-                                    className={tabClassNames.tab}
-                                    onClick={onActivateSoundsTab}
-                                >
-                                    <img
-                                        draggable={false}
-                                        src={soundsIcon}
-                                    />
-                                    <FormattedMessage
-                                        defaultMessage="Sounds"
-                                        description="Button to get to the sounds panel"
-                                        id="gui.gui.soundsTab"
-                                    />
-                                </Tab>
-                            </TabList>
+                                    </Tab>
+                                    <Tab
+                                        className={tabClassNames.tab}
+                                        onClick={onActivateCostumesTab}
+                                    >
+                                        <img
+                                            draggable={false}
+                                            src={costumesIcon}
+                                        />
+                                        {targetIsStage ? (
+                                            <FormattedMessage
+                                                defaultMessage="Backdrops"
+                                                description="Button to get to the backdrops panel"
+                                                id="gui.gui.backdropsTab"
+                                            />
+                                        ) : (
+                                            <FormattedMessage
+                                                defaultMessage="Costumes"
+                                                description="Button to get to the costumes panel"
+                                                id="gui.gui.costumesTab"
+                                            />
+                                        )}
+                                    </Tab>
+                                    <Tab
+                                        className={tabClassNames.tab}
+                                        onClick={onActivateSoundsTab}
+                                    >
+                                        <img
+                                            draggable={false}
+                                            src={soundsIcon}
+                                        />
+                                        <FormattedMessage
+                                            defaultMessage="Sounds"
+                                            description="Button to get to the sounds panel"
+                                            id="gui.gui.soundsTab"
+                                        />
+                                    </Tab>
+                                </TabList>
+                                <ProjectTitle
+                                    value={projectTitle}
+                                    onChange={onProjectRename}
+                                />
+                            </Box>
                             <TabPanel className={tabClassNames.tabPanel}>
                                 <Box className={styles.blocksWrapper}>
                                     <Blocks
@@ -245,8 +254,10 @@ GUIComponent.propTypes = {
     onActivateSoundsTab: PropTypes.func,
     onActivateTab: PropTypes.func,
     onExtensionButtonClick: PropTypes.func,
+    onProjectRename: PropTypes.func,
     onTabSelect: PropTypes.func,
     previewInfoVisible: PropTypes.bool,
+    projectTitle: PropTypes.string,
     soundsTabVisible: PropTypes.bool,
     targetIsStage: PropTypes.bool,
     tipsLibraryVisible: PropTypes.bool,
