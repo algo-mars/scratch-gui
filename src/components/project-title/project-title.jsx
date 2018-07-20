@@ -2,6 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './project-title.css';
 
+const MAX_TITLE_LENGTH = 50;
+
+/*
+ * Input with project title with related logic and validation.
+ * Consider using a good 3rd party component here.
+ */
 class ProjectTitle extends React.Component {
     constructor (props) {
         super(props);
@@ -12,11 +18,22 @@ class ProjectTitle extends React.Component {
     }
 
     handleBlur () {
-        this.props.onChange(this.state.temporaryValue);
+        const {value} = this.props;
+        const {temporaryValue} = this.state;
+
+        if (value === temporaryValue) return;
+
+        if (!temporaryValue) {
+            this.setState({temporaryValue: value});
+        }
+
+        this.props.onChange(temporaryValue);
     }
 
     handleChange ({target}) {
-        this.setState({temporaryValue: target.value});
+        this.setState({
+            temporaryValue: target.value.slice(0, MAX_TITLE_LENGTH)
+        });
     }
 
     handleKeyPress ({target, key}) {
