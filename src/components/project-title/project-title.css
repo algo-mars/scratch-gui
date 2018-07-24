@@ -1,0 +1,9 @@
+@import "../../css/colors.css";
+
+.title-field {
+    border: 1px solid $ui-black-transparent;
+    border-radius: .25rem;
+    width: 12rem;
+    height: 34px; /* XXX: Magic number, plays well with nearby buttons */
+    padding: 0 .5rem;
+}
